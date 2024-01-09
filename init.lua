@@ -74,7 +74,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  --'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -266,7 +266,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -427,14 +427,7 @@ vim.defer_fn(function()
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
-    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
-    -- Install languages synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-    -- List of parsers to ignore installing
-    ignore_install = {},
-    -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
-    modules = {},
+
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
@@ -666,3 +659,37 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- NeoTree Plugin Settings --
+require("neo-tree").setup({
+  close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+  popup_border_style = "rounded",
+  enable_git_status = true,
+  window = {
+    mappings = {
+      ["p"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+    }
+  },
+  filesystem = {
+    filtered_items = {
+      visible = true,
+      hide_dotfiles = false,
+      hide_gitignored = false,
+    }
+  }
+})
+
+
+
+-------------------------------- CUSTOM CONFIGS --------------------------------
+vim.o.colorcolumn = "80"      -- Set right margin guide
+vim.o.relativenumber = true   -- Set relative line numbers
+vim.o.shiftwidth = 4          -- Set shift width
+vim.o.tabstop = 4             -- Set tab width to 4 spaces 
+vim.o.softtabstop = 4
+vim.o.smarttab = true         -- Intelligently use the tab key for indentation
+vim.o.expandtab = true        -- Expand tabs to spaces
+
+--------------------------------- CUSTOM REMAPS --------------------------------
+vim.keymap.set('n', '<leader>nt', '<Cmd>Neotree toggle<CR>', { desc = '[N]eoTree [T]oggle' })
+vim.keymap.set('n', '<leader>nb', '<Cmd>Neotree buffers<CR>', { desc = '[N]eoTree view [B]uffers' })
